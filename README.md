@@ -41,4 +41,3 @@ The modules are guidance, not files to copy blindly into a product repo. Read th
 The source repository is the editable version. A tagged ZIP with a checksum is the stable student download. Keep one authoritative copy of each instruction; update links and examples together. Record which assistant, framework, operating system, and project type were used for each adoption trial. Recheck provider adapters when their tools change.
 
 License: [MIT](LICENSE).
-
