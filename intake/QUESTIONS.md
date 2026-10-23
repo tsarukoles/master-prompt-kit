@@ -34,3 +34,10 @@ Inspect the repository before asking. Record each answer as **confirmed from fil
 - Are there legal, privacy, security, accessibility, budget, or retention requirements?
 - Which parts must stay manual? Which results should never be automatically posted or treated as a pass?
 - What maintenance effort can the team support?
+
+## Verification and knowledge
+
+- What original acceptance criteria will an independent verifier use? Which checks are required before accepting an AI-generated test or fix?
+- Where do the product map, case catalog, test data rules, decisions, and failure notes live? Which are generated, approved, or stale?
+- Would a database schema map materially help? Does policy allow metadata to be read by this assistant and stored in the Vault? Can approved migrations or a DBA export answer the question instead?
+- For every requested database environment, who approves schemas, identity, time/result limits, model exposure, and retention? Do not infer row-data access from metadata approval.

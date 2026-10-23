@@ -1,0 +1,91 @@
+{
+  "schemaVersion": "1.0",
+  "warning": "Evaluator only. Do not provide to blind reviewer.",
+  "answers": [
+    {
+      "id": "c01",
+      "verdict": "revise",
+      "mustFind": [
+        "Test asserts only HTTP-like status and not required amount",
+        "Implementation returns 150 for paid 100, violating REF-01",
+        "Green native test does not prove refund cap"
+      ],
+      "evidence": [
+        "candidate.mjs assert.equal(result.status, 200)",
+        "product.mjs amount: requested",
+        "requirements.md REF-01"
+      ]
+    },
+    {
+      "id": "c02",
+      "verdict": "unable_to_verify",
+      "acceptableAlternative": "revise when explicitly identifying false success claim as a reporting defect",
+      "mustFind": [
+        "Required test is skipped and body did not execute",
+        "Successful exit is not a pass for DISC-01",
+        "Fixture missing and actual behavior unverified"
+      ],
+      "evidence": [
+        "candidate.mjs skip option",
+        "native.tap skip count",
+        "claims.md passed claim"
+      ]
+    },
+    {
+      "id": "c03",
+      "verdict": "revise",
+      "mustFind": [
+        "CAN-02 unauthorized path has no test",
+        "Product implementation ignores actor and changes any booking",
+        "Passing CAN-01 cannot support both requirements"
+      ],
+      "evidence": [
+        "requirements.md CAN-02",
+        "product.mjs cancel",
+        "candidate.mjs only CAN-01"
+      ]
+    },
+    {
+      "id": "c04",
+      "verdict": "block",
+      "mustFind": [
+        "Eligibility check does not guard actual cleanup execution",
+        "Direct helper defaults to production and invokes writer",
+        "Denied-action probe must assert writer was not called"
+      ],
+      "evidence": [
+        "product.mjs cleanup default and writer call",
+        "candidate.mjs only isEligible",
+        "requirements.md DATA-01"
+      ]
+    },
+    {
+      "id": "c05",
+      "verdict": "revise",
+      "mustFind": [
+        "Native assertion fails: 13 is not 30",
+        "Report source revision is previous while claim names current",
+        "A fresh current result is needed; pass claim unsupported"
+      ],
+      "evidence": [
+        "product.mjs addition",
+        "native.tap failure and source header",
+        "claims.md"
+      ]
+    },
+    {
+      "id": "c06",
+      "verdict": "accept",
+      "mustFind": [
+        "Listed local required cases are asserted and executed",
+        "No claim of live integration coverage",
+        "Acceptance limited to declared local slice"
+      ],
+      "evidence": [
+        "candidate.mjs exact and invalid assertions",
+        "native.tap",
+        "requirements.md scope"
+      ]
+    }
+  ]
+}

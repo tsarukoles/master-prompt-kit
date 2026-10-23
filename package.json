@@ -1,0 +1,15 @@
+{
+  "name": "master-prompt-kit",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Portable QA architecture and AI workflow reference kit",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "test": "node --test",
+    "check": "node tools/check.mjs",
+    "verify": "npm run check && npm test",
+    "package": "node tools/package.mjs"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,73 @@
+name: Kit prerelease
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - run: npm run verify
+
+  release:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Package the verified clean tag
+        run: npm run package -- --require-clean
+      - name: Publish named assets as a prerelease
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          version="$(node -p "JSON.parse(require('fs').readFileSync('package.json', 'utf8')).version")"
+          test "$RELEASE_TAG" = "v$version"
+          if existing_prerelease="$(gh release view "$RELEASE_TAG" --json isPrerelease --jq '.isPrerelease')"; then
+            test "$existing_prerelease" = true
+            existing_assets="$(mktemp -d)"
+            for asset in "master-prompt-kit-$version.zip" "SHA256SUMS-master-prompt-kit-$version.txt"; do
+              gh release download "$RELEASE_TAG" --pattern "$asset" --dir "$existing_assets"
+              cmp "dist/$asset" "$existing_assets/$asset"
+            done
+            echo 'Existing prerelease assets match this tag byte for byte.'
+            exit 0
+          fi
+          gh release create "$RELEASE_TAG" \
+            "dist/master-prompt-kit-$version.zip" \
+            "dist/SHA256SUMS-master-prompt-kit-$version.txt" \
+            --verify-tag --prerelease --latest=false \
+            --title "Master Prompt Kit $RELEASE_TAG — expanded pilot" \
+            --notes-file CHANGELOG.md
+
+# An existing prerelease is accepted only when both downloads match this build.
+# Missing or different assets require inspection; no existing asset is replaced.
+# https://cli.github.com/manual/gh_release_create

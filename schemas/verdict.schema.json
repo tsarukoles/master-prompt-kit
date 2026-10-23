@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Independent verification report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewId", "subject", "verdict", "findings", "checks", "limitations", "reviewedBy", "independence", "nextAction"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "reviewId": {"type": "string", "minLength": 1},
+    "subject": {"type": "object", "additionalProperties": false, "required": ["revision", "requirementIds", "changeRefs"], "properties": {
+      "revision": {"type": "string", "minLength": 1},
+      "requirementIds": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+      "changeRefs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+    }},
+    "verdict": {"enum": ["accept", "revise", "block", "unable_to_verify"]},
+    "findings": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "severity", "requirementId", "evidence", "reason", "correction"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "severity": {"enum": ["critical", "high", "medium", "low"]},
+        "requirementId": {"type": "string", "minLength": 1},
+        "evidence": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["path", "locator"], "properties": {"path": {"type": "string", "minLength": 1}, "locator": {"type": "string", "minLength": 1}}}},
+        "reason": {"type": "string", "minLength": 1},
+        "correction": {"type": "string", "minLength": 1}
+      }
+    }},
+    "checks": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false, "required": ["name", "required", "status", "evidence"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "required": {"type": "boolean"},
+        "status": {"enum": ["passed", "failed", "skipped", "not_run", "blocked"]},
+        "evidence": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["path", "locator"], "properties": {"path": {"type": "string", "minLength": 1}, "locator": {"type": "string", "minLength": 1}}}}
+      }
+    }},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "reviewedBy": {"type": "string", "minLength": 1},
+    "independence": {"type": "object", "additionalProperties": false, "required": ["authoredChange", "context"], "properties": {"authoredChange": {"const": false}, "context": {"enum": ["fresh", "separate-review-pass"]}}},
+    "nextAction": {"type": "string", "minLength": 1}
+  }
+}

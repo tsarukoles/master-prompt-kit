@@ -1,23 +1,39 @@
 # Environment selection and action guards
 
-Define the allowed destinations in one canonical resolver. A missing setting may choose a safe development target **only if the project owner approves that default**. Reject empty, misspelled, or unexpected values. If a URL override is permitted, require an exact match to the selected target; avoid echoing an untrusted value into an error. Keep one target per test process so a late environment change cannot split the browser, API client, and guard decisions.
+Use one reviewed target map for browser, API, database, and external reporting destinations. Resolve it once when a run begins and pass that immutable value into clients. An environment label alone does not prove the destination. Bind the target to the client and restrict credentials at the service.
 
-Use two distinct controls when tests can modify data:
+## Project contract
 
-- **Eligibility:** a `runIfEnv`-style test gate marks where a test is allowed to run. A skip is visible and is not a pass.
-- **Action guard:** check immediately before each data-changing UI, API, database, or service action. Throw if the selected target or permission is not allowed.
+| Environment | Canonical destination | Allowed actions | Data owner and cleanup | Service identity |
+| --- | --- | --- | --- | --- |
+| Development | Owner supplies exact URL/database | Explicit read/create/update/delete list | Isolated synthetic data; named cleanup owner | Development role |
+| Staging | Owner supplies exact destination | Approved actions only | Namespace per run; cleanup on failure | Separate staging role |
+| Production | Owner supplies exact destination | Read-only smoke by default | No fixture creation by default | Restricted production role |
 
-Both controls depend on calls in the actual execution path. They cannot stop arbitrary shell commands, a separate client, a hard-coded URL, or code that omits them. Service-side roles and least-privilege credentials provide another boundary. Review imports and setup functions before test discovery: some frameworks load code for disabled profiles while listing tests.
+Require an explicit environment unless the owner deliberately approves a safe default. Reject blank, misspelled, unknown, or conflicting overrides. Credentials, redirects, alternate database connections, and third-party URLs require their own destination checks. Never print connection strings in errors.
 
-## Project-specific contract to write
+## Two controls at different points
 
-| Environment | Canonical target | Read actions | Write actions | Credentials | Cleanup owner |
-| --- | --- | --- | --- | --- | --- |
-| Example development | Owner supplied | Owner approved | Explicit list | Secret store | Named owner |
-| Example production | Owner supplied | Explicit list | Normally none | Separate role | Named owner |
+1. **Eligibility (`runIfEnv`)** says whether a test is selected for this environment. Outside the allowlist, report a skip with its reason. A skipped test did not pass.
+2. **Action guard (`guardAction` / `envGuard`)** checks immediately before a data-changing operation. A rejected write is an error, even if a test forgot its eligibility declaration.
 
-Do not copy the sample rows into code as real settings. Decide what counts as a write: account creation, form submission, issue updates, notifications, and CI dispatch can all have effects outside the test runner. Record the exact target, action, data owner, and expected cleanup in a run plan.
+Apply the action guard to setup and cleanup too. A fixture can create data before the test body. Test discovery can load modules and configuration, so inspect import/setup behavior before listing tests. Prefer lazy connections and side-effect-free imports.
 
-## Verification
+## Runnable reference
 
-Use isolated checks with fake actions to prove invalid targets are rejected, the protected target blocks writes, and approved calls proceed. Then review real call sites for missing guards. A unit check of the helper alone is not evidence that every test uses it.
+[environment.mjs](environment.mjs) has fictional `.invalid` destinations. It exposes a resolver, eligibility result, action guard, and runner whose host binds the target. It performs no network or database calls. [Tests](environment.test.mjs) demonstrate invalid settings, mismatched destinations, visible skips, blocked writes, approved fake actions, and a deliberate direct-call bypass showing the library's limit.
+
+```text
+node --test safety/environment.test.mjs
+```
+
+For your runner, translate `eligible: false` into its documented skip mechanism, wire the target into fixtures, and guard every mutation in the actual client. This is a neutral reference, not a complete runner configuration. A separate HTTP or database client does not inherit its protections. The trusted host owns the executor; only a task-specific harness should expose it to AI.
+
+## Adoption and verification
+
+- Inventory write paths: UI forms, API calls, DB operations, tracker updates, notifications, CI dispatch, setup, and teardown.
+- Map each path to its client, target, eligibility, action guard, service permissions, and cleanup.
+- Exercise fake clients first. A blocked write must leave a call counter at zero.
+- Inspect real call sites, including helpers and imports. A passing helper test does not establish complete coverage.
+- Review redirects, retries, proxies, and connection pools for destination drift.
+- Have the [verifier](../agents/VERIFIER.md) check the map and actual run evidence before accepting adoption.

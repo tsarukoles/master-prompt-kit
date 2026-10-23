@@ -1,0 +1,28 @@
+# Project instructions — replace every bracketed item
+
+Purpose: [product and important behavior]
+Owner and source of truth: [requirement location and approver]
+Project conventions: [architecture and existing instructions]
+Knowledge entry: [approved Vault map path]
+
+## Task flow
+
+Read the applicable requirement and current implementation. Propose a scoped change, preserving unrelated work. Use [approved commands] in [approved environment] with [data ownership and cleanup]. Report actual revision, selection, outcome, and evidence. Have an independent verifier compare the result with the requirement before accepting consequential changes.
+
+## Boundaries
+
+Secrets and private data: [paths/data types the assistant cannot read or share]
+Allowed routine operations: [explicit list]
+Operations needing review or preauthorization: [explicit list]
+Environment source and write guard: [actual resolver and guard paths]
+External connections and target scope: [approved connection records]
+Stop when: [target unknown, evidence missing, effect outside scope, or policy check fails]
+
+## Navigation
+
+Tests/fixtures/helpers: [paths]
+Case catalog and traceability: [paths]
+Native reports: [ignored/private path and retention]
+Failure triage and handoff: [paths]
+
+Keep this entry brief. Link to topic guidance and actual commands; never copy secrets or complete raw reports into it.

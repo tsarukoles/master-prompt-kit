@@ -8,6 +8,8 @@ The included [example tool](example.mjs) accepts exactly `{ action, taskId, deci
 
 The host must authenticate the caller, decide whether human approval is required, and configure an isolated output root that the model cannot change. This example does not implement those host responsibilities. It also does not protect against a hostile local user concurrently replacing directories; deploy with appropriate filesystem ownership and isolation.
 
+The host must also bind allowed task IDs and decisions to the current authorized task. The example validates the task ID's syntax; it cannot determine which business task the caller owns. Do not expose the function as a general service without that authorization check.
+
 Run the local contract checks with Node 24 or another compatible modern Node version:
 
 ```text

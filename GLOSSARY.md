@@ -16,4 +16,14 @@
 
 **runIfEnv-style gate:** A test eligibility rule that skips a test outside its allowed environment. A skip is not a pass.
 
+**Verifier:** An independent review role that compares the original requirement, actual assertions, safety boundaries, and native execution evidence. It can recommend accept, revise, block, or unable to verify; it cannot establish truth from a schema check alone.
+
+**Knowledge Vault:** A maintained index of project facts, decisions, data rules, cases, incidents, and runbooks, each with an owner, source, revision, and freshness status.
+
+**Metadata-only discovery:** An approved inspection of database structure and relationships. It excludes business row values and does not establish permission to read or change data.
+
+**Negative control:** A deliberately wrong behavior in an isolated example that a useful test should reject. It helps distinguish meaningful assertions from green tests that prove little.
+
+**Native evidence:** Results produced by the actual test runner or authoritative service, with revision, target, selection, time, and outcome. An AI explanation is an interpretation of that evidence.
+
 **Target resolver:** One authoritative function or configuration that chooses and validates the system under test.

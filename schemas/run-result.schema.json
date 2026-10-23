@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Normalized test run evidence",
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "runId", "revision", "environment", "startedAt", "endedAt", "adapter", "selection", "tests", "cleanup", "nativeReport"],
+  "properties": {
+    "schemaVersion": {"const": "1.0"},
+    "runId": {"type": "string", "minLength": 1},
+    "revision": {"type": "string", "minLength": 1},
+    "environment": {"type": "string", "minLength": 1},
+    "startedAt": {"type": "string", "minLength": 1},
+    "endedAt": {"type": ["string", "null"], "minLength": 1},
+    "adapter": {"type": "object", "additionalProperties": false, "required": ["name", "version"], "properties": {"name": {"type": "string", "minLength": 1}, "version": {"type": "string", "minLength": 1}}},
+    "selection": {"type": "string", "minLength": 1},
+    "tests": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["testId", "requirementIds", "caseIds", "outcome", "attempts", "evidence"], "properties": {
+      "testId": {"type": "string", "minLength": 1},
+      "requirementIds": {"type": "array", "items": {"type": "string", "minLength": 1}},
+      "caseIds": {"type": "array", "items": {"type": "string", "minLength": 1}},
+      "outcome": {"enum": ["passed", "failed", "skipped", "blocked", "not_run"]},
+      "attempts": {"type": "integer", "minimum": 0},
+      "evidence": {"type": "array", "items": {"type": "string", "minLength": 1}}
+    }}},
+    "cleanup": {"enum": ["completed", "failed", "not_required", "unknown"]},
+    "nativeReport": {"type": "string", "minLength": 1}
+  }
+}

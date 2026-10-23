@@ -11,6 +11,10 @@
 
 ## After the first change
 
+- [ ] Give the original requirement, approved checks, actual diff and native results to the independent [verifier](../agents/VERIFIER.md).
+- [ ] Confirm assertions detect the relevant wrong behavior; use a safe negative control when useful.
+- [ ] Confirm hook claims match actual installed event evidence, and database metadata claims state scope and visibility.
+
 - [ ] Verify the intended files and behavior at the actual revision and target.
 - [ ] Report passes, failures, skips, blocked work, and checks not run separately.
 - [ ] Check that no credential, private data, or raw report entered shared files.
@@ -25,4 +29,4 @@
 - [ ] Search the entire release payload for organization names, private URLs, credentials, and personal data; review matches manually.
 - [ ] Verify the ZIP's file list and hash against the tagged source.
 - [ ] Put source and release links in the matching course lesson only after the artifact is accessible.
-- [ ] Keep the later full-cohort audit and any unverified provider adapter visible.
+- [ ] Keep the kit's remaining reference-project field validation and any unverified provider adapter visible.

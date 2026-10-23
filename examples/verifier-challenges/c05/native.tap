@@ -1,0 +1,35 @@
+# Fictional fixture evidence. sourceRevision: fixture-c05-previous; target: local-synthetic
+TAP version 13
+# Subtest: PRICE-01 quantity total
+not ok 1 - PRICE-01 quantity total
+  ---
+  duration_ms: 1.5248
+  type: 'test'
+  location: './candidate.mjs:4:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    13 !== 30
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 30
+  actual: 13
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (./candidate.mjs:5:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1106:25)
+    Test.start (node:internal/test_runner/test:1003:17)
+    startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 115.9541

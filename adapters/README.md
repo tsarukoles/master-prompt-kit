@@ -1,13 +1,15 @@
 # Optional provider adapters
 
-An adapter translates the neutral intake and plan into the tools actually installed in the student's project. Inspect local configuration and current vendor documentation before generating provider-specific files. No adapter is automatically enabled by this kit.
+The neutral modules define what a process must accomplish. Adapters translate it into the installed provider, runner, and company policy. Never enable an adapter just because its folder exists.
 
-| If the project uses… | Inspect before adapting | Typical output |
+| Area | Supplied in 0.2.0 | Status and adoption requirement |
 | --- | --- | --- |
-| GitHub or GitLab | Remote, branches, review rules, CI permissions | A project-specific branch and check plan |
-| Playwright or another test runner | Version, config loading, reporters, fixtures, retries | A small test slice with honest results |
-| Jira, another tracker, or test management | Project identifiers, field schema, account permissions, write approval | Read-only mapping, then an optional reviewed write flow |
-| MCP tools | Server source, installed version, scopes, returned data | A connection inventory and least-privilege plan |
-| A specific AI assistant | Instruction files, hook events, permission syntax | Tested project-specific configuration |
+| Assistants | Claude event mapping and setup worksheet | Documentation-reviewed; no live assistant hook installation claimed. Match the installed version and test each event. |
+| Databases | PostgreSQL and SQL Server metadata-only query examples and discovery procedure | Documentation-reviewed; no live DB query claimed. Owner approves scope/identity, then trial on fictional schemas and denied/partial roles. |
+| Test runner | Neutral Node examples and runner mapping guide | Local examples tested. Actual Playwright or other runner configuration must be adapted and exercised in the target project. |
+| CI | This kit's GitHub checks/release workflow and application pipeline mapping | The kit workflow is specific to this source tree. GitLab and application workflows are design guidance until tested there. |
+| Trackers/test management/notifications | Provider-neutral connection and write contracts | No live connector bundled or connected. Resolve fields, IDs, identity, idempotency, and readback before writing. |
 
-If a provider cannot implement a proposed hook or permission, state the gap. Do not imitate a control with prompt text and claim equivalent enforcement. Keep the core plan usable without any one provider.
+For each adopted adapter record version, platform, tested event/query/method, allowed and denied probes, evidence, owner, and recheck date. If the provider lacks a required control, report it; prompt wording is not an equivalent permission boundary. Use a local wrapper or service-side restriction where appropriate, or defer the capability.
+
+Read [assistant adapters](assistants/README.md), [database adapters](databases/README.md), [runner mapping](runners/README.md), and [CI mapping](ci/README.md). [VALIDATION.md](../VALIDATION.md) records the release's observed checks.

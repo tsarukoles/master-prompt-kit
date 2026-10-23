@@ -1,0 +1,17 @@
+# Fictional fixture evidence. sourceRevision: fixture-c04; target: local-synthetic
+TAP version 13
+# Subtest: DATA-01 production cleanup is not eligible
+ok 1 - DATA-01 production cleanup is not eligible
+  ---
+  duration_ms: 1.2049
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 127.1392

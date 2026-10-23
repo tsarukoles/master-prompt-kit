@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "snapshotId": "fictional-schema-001",
+  "environment": "local-fictional",
+  "databaseAlias": "library-demo",
+  "engine": "postgresql",
+  "engineVersion": "18-doc-example",
+  "sourceKind": "fictional-example",
+  "sourceRevision": "example-1",
+  "capturedAt": "2026-10-22T00:00:00Z",
+  "queryRevision": "not-executed",
+  "scope": {
+    "schemas": ["library"],
+    "excluded": ["row-values", "object-definition-text", "other-schemas"],
+    "approvalReference": "fictional-demonstration-only",
+    "identityAlias": "none-no-connection",
+    "statementTimeoutMs": 3000,
+    "resultRecordLimit": 1000
+  },
+  "visibility": {
+    "status": "partial",
+    "expectedObjectCount": null,
+    "observedObjectCount": 2,
+    "truncated": false,
+    "deniedQueries": [],
+    "limitations": ["Fictional subset, no database inspected", "Indexes and checks omitted in this compact example"]
+  },
+  "classification": "public-fictional",
+  "ownerReview": { "status": "draft", "reference": null },
+  "objects": [
+    {
+      "id": "library.titles", "schema": "library", "name": "titles", "kind": "table",
+      "sourceReference": "fictional-example",
+      "columns": [
+        { "name": "id", "ordinal": 1, "nativeType": "uuid", "nullable": false },
+        { "name": "name", "ordinal": 2, "nativeType": "character varying(120)", "nullable": false }
+      ],
+      "keys": [{ "name": "titles_pkey", "kind": "primary", "columns": ["id"], "validated": true }],
+      "checks": [], "indexes": []
+    },
+    {
+      "id": "library.copies", "schema": "library", "name": "copies", "kind": "table",
+      "sourceReference": "fictional-example",
+      "columns": [
+        { "name": "id", "ordinal": 1, "nativeType": "uuid", "nullable": false },
+        { "name": "title_id", "ordinal": 2, "nativeType": "uuid", "nullable": false }
+      ],
+      "keys": [{ "name": "copies_pkey", "kind": "primary", "columns": ["id"], "validated": true }],
+      "checks": [], "indexes": []
+    }
+  ],
+  "relationships": [
+    {
+      "id": "library.copies.copies_title_fk", "evidenceKind": "declared",
+      "fromObject": "library.copies", "toObject": "library.titles",
+      "columnPairs": [{ "from": "title_id", "to": "id" }],
+      "deleteRule": "NO ACTION", "updateRule": "NO ACTION",
+      "enabled": true, "validated": true,
+      "cardinality": "unknown",
+      "cardinalityEvidence": "Declared reference only; business multiplicity not reviewed"
+    }
+  ]
+}

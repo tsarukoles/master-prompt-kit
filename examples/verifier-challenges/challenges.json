@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0",
+  "purpose": "Blind independent review inputs. All scenario data is fictional.",
+  "challenges": [
+    {
+      "id": "c01",
+      "inputs": [
+        "c01/requirements.md",
+        "c01/candidate.mjs",
+        "c01/claims.md",
+        "c01/native.tap",
+        "c01/product.mjs"
+      ],
+      "sourceDirectory": "c01",
+      "command": "node --test examples/verifier-challenges/c01/candidate.mjs"
+    },
+    {
+      "id": "c02",
+      "inputs": [
+        "c02/requirements.md",
+        "c02/candidate.mjs",
+        "c02/claims.md",
+        "c02/native.tap"
+      ],
+      "sourceDirectory": "c02",
+      "command": "node --test examples/verifier-challenges/c02/candidate.mjs"
+    },
+    {
+      "id": "c03",
+      "inputs": [
+        "c03/requirements.md",
+        "c03/candidate.mjs",
+        "c03/claims.md",
+        "c03/native.tap",
+        "c03/product.mjs"
+      ],
+      "sourceDirectory": "c03",
+      "command": "node --test examples/verifier-challenges/c03/candidate.mjs"
+    },
+    {
+      "id": "c04",
+      "inputs": [
+        "c04/requirements.md",
+        "c04/candidate.mjs",
+        "c04/claims.md",
+        "c04/native.tap",
+        "c04/product.mjs"
+      ],
+      "sourceDirectory": "c04",
+      "command": "node --test examples/verifier-challenges/c04/candidate.mjs"
+    },
+    {
+      "id": "c05",
+      "inputs": [
+        "c05/requirements.md",
+        "c05/candidate.mjs",
+        "c05/claims.md",
+        "c05/native.tap",
+        "c05/product.mjs"
+      ],
+      "sourceDirectory": "c05",
+      "command": "node --test examples/verifier-challenges/c05/candidate.mjs"
+    },
+    {
+      "id": "c06",
+      "inputs": [
+        "c06/requirements.md",
+        "c06/candidate.mjs",
+        "c06/claims.md",
+        "c06/native.tap",
+        "c06/product.mjs"
+      ],
+      "sourceDirectory": "c06",
+      "command": "node --test examples/verifier-challenges/c06/candidate.mjs"
+    }
+  ]
+}
