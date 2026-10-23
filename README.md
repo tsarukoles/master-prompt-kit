@@ -6,7 +6,7 @@ A reusable QA architecture and AI workflow library for a new or existing project
 
 ## Start in five steps
 
-1. Download the curated ZIP and checksum from this repository's **v0.2.0 release**. Verify its SHA-256 before extracting. Keep the kit in a separate reference folder.
+1. Select **Code → Download ZIP** in this repository. Extract the ZIP into a separate reference folder and open [START-HERE.md](START-HERE.md).
 2. Open the target project in your coding assistant. Give it access to this kit folder or attach the files named in [START-HERE.md](START-HERE.md).
 3. Paste the complete discovery prompt from START-HERE and describe your goal. The first response inspects non-secret files, asks unanswered questions, and proposes a plan. It does not install or run the project.
 4. Choose a specific plan step. The assistant adapts the relevant templates to your actual repository, permissions, and tools. Use the [adoption checklist](checklists/ADOPTION.md).
